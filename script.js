@@ -1,9 +1,9 @@
+/* eslint-disable no-undef */
 const myBox = [];
 
-function Quote(quote, author) {
-  this.quote = quote;
-  this.author = author;
-}
+const quoteText = document.querySelector('.quote_text');
+const quoteAuthor = document.querySelector('.quote_author');
+const addBtn = document.querySelector('.add-btn');
 
 function addQuoteToBox() {
   const quote = prompt('Enter Quote');
@@ -13,4 +13,11 @@ function addQuoteToBox() {
   console.log(myBox);
 }
 
-// addQuoteToBox();
+function Quote(quote, author) {
+  this.quote = quote;
+  this.author = author;
+}
+
+addBtn.addEventListener('click', addQuoteToBox);
+
+console.log(myBox);
