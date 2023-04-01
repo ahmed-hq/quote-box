@@ -34,6 +34,19 @@ p {
   justify-content: space-between;
 }
 
+.quote-form {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 2rem;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 20rem;
+  background-color: var(--light-black);
+}
+
 .quote_card {
   max-width: 40rem;
   margin: 0rem 0rem;
