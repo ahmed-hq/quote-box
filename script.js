@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+
 // const myBox = [];
 
 // function Quote(quote, author) {
@@ -76,3 +78,41 @@
 
 // // console.log(myBox);
 /// //////////////////////////////////////////////////////////////
+const myBox = [
+  {
+    quote: 'no pain, no gain',
+    author: 'me',
+  },
+  {
+    quote: 'no pain, there is gain',
+    author: 'you',
+  },
+];
+
+const quoteCardsWrapper = document.querySelector('.quotes_cards-wrapper');
+let quoteCard = document.createElement('div');
+let quoteText = document.createElement('p');
+let quoteAuthor = document.createElement('p');
+
+function createQuote() {
+  quoteCard = document.createElement('div');
+  quoteCard.setAttribute('class', 'quote_card');
+  quoteText = document.createElement('p');
+  quoteText.setAttribute('class', 'quote_text');
+  quoteAuthor = document.createElement('p');
+  quoteAuthor.setAttribute('class', 'quote_author');
+  quoteCardsWrapper.appendChild(quoteCard);
+  quoteCard.appendChild(quoteText);
+  quoteCard.appendChild(quoteAuthor);
+
+}
+
+function renderBox() {
+  for (let i = 0; i < myBox.length; i += 1) {
+    createQuote();
+    quoteText.innerText = `${myBox[i].quote}`;
+    quoteAuthor.innerText = `${myBox[i].author}`;
+  }
+}
+
+renderBox();
