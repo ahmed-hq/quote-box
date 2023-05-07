@@ -78,41 +78,152 @@
 
 // // console.log(myBox);
 /// //////////////////////////////////////////////////////////////
+// const myBox = [
+//   {
+//     quote: 'no pain, no gain',
+//     author: 'me',
+//   },
+//   {
+//     quote: 'no pain, there is gain',
+//     author: 'you',
+//   },
+// ];
+
+// function Quote(quote, author) {
+//   this.quote = quote;
+//   this.author = author;
+// }
+
+// const mainWrapper = document.querySelector('.main-wrapper');
+// const quoteCardsWrapper = document.querySelector('.quotes_cards-wrapper');
+// let quoteCard = document.createElement('div');
+// let quoteText = document.createElement('p');
+// let quoteAuthor = document.createElement('p');
+// let quoteForm = document.createElement('form');
+// let quoteTextInput = document.createElement('input');
+// let quoteAuthorInput = document.createElement('input');
+// let quoteSubmitBtn = document.createElement('button');
+// const addBtn = document.querySelector('.add-btn');
+// let quote;
+// let author;
+
+// function createQuote() {
+//   quoteCard = document.createElement('div');
+//   quoteCard.setAttribute('class', 'quote_card');
+//   quoteText = document.createElement('p');
+//   quoteText.setAttribute('class', 'quote_text');
+//   quoteAuthor = document.createElement('p');
+//   quoteAuthor.setAttribute('class', 'quote_author');
+//   quoteCardsWrapper.appendChild(quoteCard);
+//   quoteCard.appendChild(quoteText);
+//   quoteCard.appendChild(quoteAuthor);
+// }
+
+// function renderBox() {
+//   for (let i = 0; i < myBox.length; i += 1) {
+//     createQuote();
+//     quoteText.innerText = `${myBox[i].quote}`;
+//     quoteAuthor.innerText = `${myBox[i].author}`;
+//   }
+// }
+
+// function displayForm() {
+//   quoteForm = document.createElement('form');
+//   quoteForm.setAttribute('class', 'quote-form');
+//   quoteTextInput = document.createElement('input');
+//   quoteTextInput.setAttribute('id', 'quote_text-input');
+//   quoteTextInput.setAttribute('type', 'text');
+//   quoteTextInput.setAttribute('name', 'quote_text');
+//   quoteAuthorInput = document.createElement('input');
+//   quoteAuthorInput.setAttribute('id', 'quote_author-input');
+//   quoteAuthorInput.setAttribute('type', 'text');
+//   quoteAuthorInput.setAttribute('name', 'quote_author');
+//   quoteSubmitBtn = document.createElement('button');
+//   quoteSubmitBtn.setAttribute('type', 'submit');
+//   quoteSubmitBtn.innerText = 'Post';
+//   mainWrapper.appendChild(quoteForm);
+//   quoteForm.appendChild(quoteTextInput);
+//   quoteForm.appendChild(quoteAuthorInput);
+//   quoteForm.appendChild(quoteSubmitBtn);
+//   quote = quoteTextInput.value;
+//   author = quoteAuthorInput.value;
+// }
+
+// function addToBox() {
+//   // push line should start after submit
+//   myBox.push(new Quote(quote, author));
+//   renderBox();
+// }
+
+// renderBox();
+// addBtn.addEventListener('click', displayForm);
+// quoteSubmitBtn.addEventListener('submit', addToBox);
+
+//  see the tutrial again
+/// //////////////////////////////////////////////////////////////
+const quotes = document.querySelector('.quotes_cards-wrapper');
+
 const myBox = [
   {
     quote: 'no pain, no gain',
     author: 'me',
+    fav: false,
   },
   {
     quote: 'no pain, there is gain',
     author: 'you',
+    fav: true,
+  },
+  {
+    quote: 'no ohhhhhhhhhhhh, there is gain',
+    author: 'meeeeee',
+    fav: false,
+  },
+  {
+    quote: 'no pain, there is gain',
+    author: 'youeeeeee  ',
+    fav: true,
   },
 ];
 
-const quoteCardsWrapper = document.querySelector('.quotes_cards-wrapper');
-let quoteCard = document.createElement('div');
-let quoteText = document.createElement('p');
-let quoteAuthor = document.createElement('p');
+function createQuoteElement(el, content, className) {
+  const element = document.createElement(el);
+  element.textContent = content;
+  element.setAttribute('class', className);
+  return element;
+}
 
-function createQuote() {
-  quoteCard = document.createElement('div');
-  quoteCard.setAttribute('class', 'quote_card');
-  quoteText = document.createElement('p');
+// function createFavElement(quoteItem, quote) {
+//   const fav = document.createElement('div');
+//   fav.setAttribute('class', 'quote-fav');
+//   fav.appendChild(createQuoteElement('p', 'fav', 'quote-fav-title'));
+// }
+
+function createQuoteItem(quote, index) {
+  const quoteItem = document.createElement('div');
+  const quoteText = document.createElement('div');
+
+  quoteItem.setAttribute('id', index);
+  quoteItem.setAttribute('key', index);
+  quoteItem.setAttribute('class', 'quote_card');
   quoteText.setAttribute('class', 'quote_text');
-  quoteAuthor = document.createElement('p');
-  quoteAuthor.setAttribute('class', 'quote_author');
-  quoteCardsWrapper.appendChild(quoteCard);
-  quoteCard.appendChild(quoteText);
-  quoteCard.appendChild(quoteAuthor);
 
+  quoteItem.appendChild(quoteText);
+  quoteText.appendChild(
+    createQuoteElement('p', `${quote.quote}`, 'quote-body')
+  );
+  quoteText.appendChild(
+    createQuoteElement('p', `${quote.author}`, 'quote_author')
+  );
+  // quoteItem.appendChild(createFavElement(quoteItem, quote));
+  quoteItem.appendChild(createQuoteElement('button', 'x', 'delete'));
+  quotes.insertAdjacentElement('afterbegin', quoteItem);
 }
 
 function renderBox() {
-  for (let i = 0; i < myBox.length; i += 1) {
-    createQuote();
-    quoteText.innerText = `${myBox[i].quote}`;
-    quoteAuthor.innerText = `${myBox[i].author}`;
-  }
+  myBox.map((quote, index) => {
+    createQuoteItem(quote, index);
+  });
 }
 
 renderBox();

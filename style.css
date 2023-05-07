@@ -53,6 +53,9 @@ p {
   padding: 2rem 0rem;
   border-bottom: 0.2px solid;
   border-color: var(--light-black);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 
 .quote_author {
