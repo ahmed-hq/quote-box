@@ -165,22 +165,22 @@ const quotes = document.querySelector('.quotes_cards-wrapper');
 
 const myBox = [
   {
-    quote: 'no pain, no gain',
+    body: 'no pain, no gain',
     author: 'me',
     fav: false,
   },
   {
-    quote: 'no pain, there is gain',
+    body: 'no pain, there is gain',
     author: 'you',
     fav: true,
   },
   {
-    quote: 'no ohhhhhhhhhhhh, there is gain',
+    body: 'no ohhhhhhhhhhhh, there is gain',
     author: 'meeeeee',
     fav: false,
   },
   {
-    quote: 'no pain, there is gain',
+    body: 'no pain, there is gain',
     author: 'youeeeeee  ',
     fav: true,
   },
@@ -193,11 +193,28 @@ function createQuoteElement(el, content, className) {
   return element;
 }
 
-// function createFavElement(quoteItem, quote) {
-//   const fav = document.createElement('div');
-//   fav.setAttribute('class', 'quote-fav');
-//   fav.appendChild(createQuoteElement('p', 'fav', 'quote-fav-title'));
-// }
+function createFavElement(quoteItem, quote) {
+  const fav = document.createElement('div');
+  fav.setAttribute('class', 'quote-fav');
+
+  const input = document.createElement('input');
+  input.type = 'checkbox';
+  input.addEventListener('click', (e) => {
+    if (e.target.checked) {
+      quoteItem.setAttribute('class', 'quote_card fav-checked');
+      quote.fav = true;
+    } else {
+      quoteItem.setAttribute('class', 'quote_card fav-unchecked');
+      quote.fav = false;
+    }
+  });
+  if (quote.fav) {
+    quoteItem.setAttribute('class', 'quote_card fav-checked');
+    input.checked = true;
+  }
+  fav.appendChild(input);
+  return fav;
+}
 
 function createQuoteItem(quote, index) {
   const quoteItem = document.createElement('div');
@@ -209,20 +226,19 @@ function createQuoteItem(quote, index) {
   quoteText.setAttribute('class', 'quote_text');
 
   quoteItem.appendChild(quoteText);
-  quoteText.appendChild(
-    createQuoteElement('p', `${quote.quote}`, 'quote-body')
-  );
+  quoteText.appendChild(createQuoteElement('p', `${quote.body}`, 'quote-body'));
   quoteText.appendChild(
     createQuoteElement('p', `${quote.author}`, 'quote_author')
   );
-  // quoteItem.appendChild(createFavElement(quoteItem, quote));
+  quoteItem.appendChild(createFavElement(quoteItem, quote));
   quoteItem.appendChild(createQuoteElement('button', 'x', 'delete'));
+
   quotes.insertAdjacentElement('afterbegin', quoteItem);
 }
 
 function renderBox() {
-  myBox.map((quote, index) => {
-    createQuoteItem(quote, index);
+  myBox.map((body, index) => {
+    createQuoteItem(body, index);
   });
 }
 
