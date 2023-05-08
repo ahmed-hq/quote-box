@@ -216,22 +216,37 @@ function createFavElement(quoteItem, quote) {
   return fav;
 }
 
+function createEditIcon(quote) {
+  const editIcon = document.createElement('img');
+  editIcon.setAttribute('class', 'edit-icon');
+  editIcon.src = './icons/pencil.svg';
+  editIcon.addEventListener('click', (e) => {
+    console.log('edit icon active');
+  });
+  return editIcon;
+}
+
 function createQuoteItem(quote, index) {
   const quoteItem = document.createElement('div');
   const quoteText = document.createElement('div');
+  const rightContent = document.createElement('div');
 
   quoteItem.setAttribute('id', index);
   quoteItem.setAttribute('key', index);
   quoteItem.setAttribute('class', 'quote_card');
   quoteText.setAttribute('class', 'quote_text');
+  rightContent.setAttribute('class', 'right-content');
 
   quoteItem.appendChild(quoteText);
   quoteText.appendChild(createQuoteElement('p', `${quote.body}`, 'quote-body'));
   quoteText.appendChild(
     createQuoteElement('p', `${quote.author}`, 'quote_author')
   );
+  quoteItem.appendChild(rightContent);
+
   quoteText.appendChild(createFavElement(quoteItem, quote));
-  quoteItem.appendChild(createQuoteElement('button', 'x', 'delete'));
+  rightContent.appendChild(createEditIcon(quote));
+  rightContent.appendChild(createQuoteElement('button', 'x', 'delete'));
 
   quotes.insertAdjacentElement('afterbegin', quoteItem);
 }
