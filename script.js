@@ -230,7 +230,7 @@ function createQuoteItem(quote, index) {
   quoteText.appendChild(
     createQuoteElement('p', `${quote.author}`, 'quote_author')
   );
-  quoteItem.appendChild(createFavElement(quoteItem, quote));
+  quoteText.appendChild(createFavElement(quoteItem, quote));
   quoteItem.appendChild(createQuoteElement('button', 'x', 'delete'));
 
   quotes.insertAdjacentElement('afterbegin', quoteItem);

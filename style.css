@@ -50,12 +50,16 @@ p {
 .quote_card {
   max-width: 40rem;
   margin: 0rem 0rem;
-  padding: 2rem 0rem;
+  padding: 1rem 0rem;
   border-bottom: 0.2px solid;
   border-color: var(--light-black);
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+}
+
+.quote-fav {
+  margin-top: 1.5rem
 }
 
 .quote_author {
