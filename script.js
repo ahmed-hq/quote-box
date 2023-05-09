@@ -162,29 +162,46 @@
 //  see the tutrial again
 /// //////////////////////////////////////////////////////////////
 const quotes = document.querySelector('.quotes_cards-wrapper');
+const addBtn = document.querySelector('.add-btn');
+const newQuoteForm = document.querySelector('#new-quote-form');
 
 const myBox = [
-  {
-    body: 'no pain, no gain',
-    author: 'me',
-    fav: false,
-  },
-  {
-    body: 'no pain, there is gain',
-    author: 'you',
-    fav: true,
-  },
-  {
-    body: 'no ohhhhhhhhhhhh, there is gain',
-    author: 'meeeeee',
-    fav: false,
-  },
-  {
-    body: 'no pain, there is gain',
-    author: 'youeeeeee  ',
-    fav: true,
-  },
+  // {
+  //   body: 'no pain, no gain',
+  //   author: 'me',
+  //   fav: false,
+  // },
+  // {
+  //   body: 'no pain, there is gain',
+  //   author: 'you',
+  //   fav: true,
+  // },
+  // {
+  //   body: 'no ohhhhhhhhhhhh, there is gain',
+  //   author: 'meeeeee',
+  //   fav: false,
+  // },
+  // {
+  //   body: 'no pain, there is gain',
+  //   author: 'youeeeeee  ',
+  //   fav: true,
+  // },
 ];
+
+function Quote(body, author, fav) {
+  this.body = body;
+  this.author = author;
+  this.fav = fav;
+}
+
+function addQuoteToBox() {
+  const body = document.querySelector('#quote').value;
+  const author = document.querySelector('#author').value;
+  const fav = document.querySelector('#fav').checked;
+  const newQuote = new Quote(body, author, fav);
+  myBox.push(newQuote);
+  console.log(newQuote);
+}
 
 function createQuoteElement(el, content, className) {
   const element = document.createElement(el);
@@ -252,9 +269,21 @@ function createQuoteItem(quote, index) {
 }
 
 function renderBox() {
+  quotes.innerHTML = '';
   myBox.map((body, index) => {
     createQuoteItem(body, index);
   });
 }
+
+addBtn.addEventListener('click', (e) => {
+  newQuoteForm.style.display = 'block';
+});
+
+newQuoteForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  addQuoteToBox();
+  console.log(myBox);
+  renderBox();
+});
 
 renderBox();
