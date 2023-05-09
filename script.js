@@ -243,10 +243,16 @@ function createEditIcon(quote) {
   return editIcon;
 }
 
+function removeQuote(index) {
+  myBox.splice(index, 1);
+  renderBox();
+}
+
 function createQuoteItem(quote, index) {
   const quoteItem = document.createElement('div');
   const quoteText = document.createElement('div');
   const rightContent = document.createElement('div');
+  const deleteBtn = createQuoteElement('button', 'x', 'delete');
 
   quoteItem.setAttribute('id', index);
   quoteItem.setAttribute('key', index);
@@ -263,16 +269,53 @@ function createQuoteItem(quote, index) {
 
   quoteText.appendChild(createFavElement(quoteItem, quote));
   rightContent.appendChild(createEditIcon(quote));
-  rightContent.appendChild(createQuoteElement('button', 'x', 'delete'));
+  rightContent.appendChild(deleteBtn);
 
   quotes.insertAdjacentElement('afterbegin', quoteItem);
 }
 
+// function renderBox() {
+//   quotes.innerHTML = '';
+//   myBox.map((body, index) => {
+//     createQuoteItem(body, index);
+//   });
+// }
+
 function renderBox() {
   quotes.innerHTML = '';
-  myBox.map((body, index) => {
-    createQuoteItem(body, index);
-  });
+  for (let i = 0; i < myBox.length; i++) {
+    const quote = myBox[i];
+
+    const index = i;
+    const quoteItem = document.createElement('div');
+    const quoteText = document.createElement('div');
+    const rightContent = document.createElement('div');
+    const deleteBtn = createQuoteElement('button', 'x', 'delete');
+
+    quoteItem.setAttribute('id', index);
+    quoteItem.setAttribute('key', index);
+    quoteItem.setAttribute('class', 'quote_card');
+    quoteText.setAttribute('class', 'quote_text');
+    rightContent.setAttribute('class', 'right-content');
+
+    quoteItem.appendChild(quoteText);
+    quoteText.appendChild(
+      createQuoteElement('p', `${quote.body}`, 'quote-body')
+    );
+    quoteText.appendChild(
+      createQuoteElement('p', `${quote.author}`, 'quote_author')
+    );
+    quoteItem.appendChild(rightContent);
+
+    quoteText.appendChild(createFavElement(quoteItem, quote));
+    rightContent.appendChild(createEditIcon(quote));
+    rightContent.appendChild(deleteBtn);
+    deleteBtn.addEventListener('click', (e) => {
+      removeQuote(i);
+    });
+
+    quotes.insertAdjacentElement('afterbegin', quoteItem);
+  }
 }
 
 addBtn.addEventListener('click', (e) => {
